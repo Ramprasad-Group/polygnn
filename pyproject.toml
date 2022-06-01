@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "polygnn"
+version = "0.1.0"
+description = ""
+authors = ["Rishi Gurnani <rgurnani96@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "3.7.3"
+numpy = "^1.19"
+torch = { url = "https://download.pytorch.org/whl/cu102/torch-1.9.1%2Bcu102-cp37-cp37m-linux_x86_64.whl" }
+torch-scatter = {url = "https://data.pyg.org/whl/torch-1.9.0%2Bcu102/torch_scatter-2.0.9-cp37-cp37m-linux_x86_64.whl"}
+torch-sparse = {url = "https://data.pyg.org/whl/torch-1.9.0%2Bcu102/torch_sparse-0.6.12-cp37-cp37m-linux_x86_64.whl"}
+torch-geometric = "^2.0.2"
+rdkit-pypi = "^2021.9.2"
+matplotlib = "^3.5.0"
+ipykernel = "^6.6.0"
+polygnn-trainer = {git = "https://github.com/rishigurnani/polygnn_trainer.git", rev = "main"}
+polygnn-kit = {git = "https://github.com/rishigurnani/polygnn_kit.git", rev = "main"}
+scikit-optimize = "^0.9.0"
+nndebugger = {git = "https://github.com/rishigurnani/nndebugger.git", rev = "develop"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^22.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
