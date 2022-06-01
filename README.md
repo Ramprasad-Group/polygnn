@@ -5,6 +5,7 @@ This repository contains the code and environment used to train the machine lear
 ## Installation
 
 - Install [poetry](https://python-poetry.org/) on your machine.
+- Clone this repo on your machine.
 - Open a terminal at the root directory of this repository.
 - Run `poetry install`.
 
