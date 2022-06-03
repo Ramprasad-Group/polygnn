@@ -4,10 +4,15 @@ This repository contains the code and environment used to train the machine lear
 
 ## Installation
 
-- Install [poetry](https://python-poetry.org/) on your machine.
-- Clone this repo on your machine.
-- Open a terminal at the root directory of this repository.
-- Run `poetry install`.
+1. Install [poetry](https://python-poetry.org/) on your machine.
+2. If Python3.7 is installed on your machine skip to step 3, if not:
+    * Install [Homebrew](https://brew.sh/) on your machine.
+    * Run `brew install python@3.7`. Take note of the path to the python executable.
+3. Clone this repo on your machine.
+4. Open a terminal at the root directory of this repository.
+5. Run `poetry env use /path/to/python3.7/executable`. If you installed Python3.7 with Homebrew, the path may be something like
+  `/usr/local/Cellar/python\@3.7/3.7.13_1/bin/python3.7`.
+7. Run `poetry install`.
 
 ## Dependencies
 As can be seen in `pyproject.toml`, `polygnn` depends on several other packages, including [`polygnn_trainer`](https://github.com/rishigurnani/polygnn_trainer), 
