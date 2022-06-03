@@ -5,7 +5,7 @@ This repository contains the code and environment used to train the machine lear
 ## Installation
 
 1. Install [poetry](https://python-poetry.org/) on your machine.
-2. If Python3.7 is installed on your machine skip to step 3, if not:
+2. If Python3.7 is installed on your machine skip to step 3, if not you will need to install it. There are many ways to do this, one option is detailed below:
     * Install [Homebrew](https://brew.sh/) on your machine.
     * Run `brew install python@3.7`. Take note of the path to the python executable.
 3. Clone this repo on your machine.
@@ -23,7 +23,7 @@ As can be seen in `pyproject.toml`, `polygnn` depends on several other packages,
 ## Usage
 The file `example.py` contains example code that illustrates how this package was used to the train models in the companion paper. The code uses training data located in the directory `sample_data` to train an ensemble model (composed of several submodels). The submodels, by default, are saved in a directory named `example_models`. The data in `sample_data` is a small subset of the DFT data used to train the models in the companion paper. A complete set of the DFT data can be found at [Khazana](https://khazana.gatech.edu/).
 
-To train polygnn models run: `poetry run python example.py --polygnn`. To train polygnn2 models run: `poetry run python example.py --polygnn2`. Running either line on a machine with at least 8GB of free GPU memory should not take longer than 3 minutes.
+To train polygnn models run: `poetry run python example.py --polygnn`. To train polygnn2 models run: `poetry run python example.py --polygnn2`. Running either line on a machine with at least 8GB of free GPU memory should not take longer than 3 minutes. If you do not have a GPU available on your machine, use the device flag. For example `poetry run python example.py --polygnn --device cpu`.
 
 ## License
 This repository is protected under a General Public Use License Agreement, the details of which can be found in `GT Open Source General Use License.pdf`.
