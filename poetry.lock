@@ -416,21 +416,25 @@ test = ["pytest (>=6.2)", "pytest-cov (>=2.12)", "codecov (>=2.1)"]
 
 [[package]]
 name = "nndebugger"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 category = "main"
 optional = false
-python-versions = ">=3.7.3,<=3.7.5"
+python-versions = "^3.7"
 develop = false
 
 [package.dependencies]
 numpy = "^1.17"
+torch = {url = "https://download.pytorch.org/whl/cu102/torch-1.9.1%2Bcu102-cp37-cp37m-linux_x86_64.whl"}
+torch-geometric = "^2.0.2"
+torch-scatter = {url = "https://data.pyg.org/whl/torch-1.9.0%2Bcu102/torch_scatter-2.0.9-cp37-cp37m-linux_x86_64.whl"}
+torch-sparse = {url = "https://data.pyg.org/whl/torch-1.9.0%2Bcu102/torch_sparse-0.6.12-cp37-cp37m-linux_x86_64.whl"}
 
 [package.source]
 type = "git"
 url = "https://github.com/rishigurnani/nndebugger.git"
-reference = "develop"
-resolved_reference = "decd67d6d7f3b7db03896e9e480bfd21e074739a"
+reference = "main"
+resolved_reference = "554dd08c14f8b21e87f966cd2f9fe120d98047df"
 
 [[package]]
 name = "numpy"
@@ -464,6 +468,7 @@ numpy = [
     {version = ">=1.17.3", markers = "platform_machine != \"aarch64\" and platform_machine != \"arm64\" and python_version < \"3.10\""},
     {version = ">=1.19.2", markers = "platform_machine == \"aarch64\" and python_version < \"3.10\""},
     {version = ">=1.20.0", markers = "platform_machine == \"arm64\" and python_version < \"3.10\""},
+    {version = ">=1.21.0", markers = "python_version >= \"3.10\""},
 ]
 python-dateutil = ">=2.7.3"
 pytz = ">=2017.3"
@@ -1027,8 +1032,8 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.7.3"
-content-hash = "1d0863c9730df30bc67b4bf868d1b63c6afecfdba264ceef7e1caed9198709b4"
+python-versions = "^3.7"
+content-hash = "2b249fb35dc95bd4d7dbbfc4f301022c57e5ff9117f384288d35885257c7dd65"
 
 [metadata.files]
 appnope = [
