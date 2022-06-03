@@ -21,6 +21,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--polygnn", default=False, action="store_true")
 parser.add_argument("--polygnn2", default=False, action="store_true")
+parser.add_argument("--device", choices=["cpu", "gpu"], default="gpu")
 args = parser.parse_args()
 if (not args.polygnn) and (not args.polygnn2):
     raise ValueError("Neither the polygnn nor the polygnn2 flags are set. Choose one.")
@@ -41,7 +42,6 @@ N_FOLDS = 3  # companion paper used 5
 HP_NCALLS = 10  # companion paper used 25
 MAX_BATCH_SIZE = 50  # companion paper used 450
 capacity_ls = list(range(2, 6))  # companion paper used list(range(2, 14))
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # specify GPU
 weight_decay = 0
 N_PASSES = 2  # companion paper used 10
 
@@ -74,6 +74,12 @@ atom_config = polygnn.featurize.AtomConfig(
 random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
+
+# Choose the device to train our models on.
+if args.device == "cpu":
+    device = "cpu"
+elif args.device == "gpu":
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # specify GPU
 
 # Load data. This data set is a subset of the data used to train the
 # electronic-properties MT models shown in the companion paper. The full
