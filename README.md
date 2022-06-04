@@ -15,7 +15,7 @@ This repository is currently set up to run on 1) Mac OSX and 2) Linux/Windows ma
   `/usr/local/Cellar/python\@3.7/3.7.13_1/bin/python3.7`.
 7. Run `poetry install`.
 8. If your machine is a Mac, run `poetry run poe torch-osx`. If not, run `poetry run poe torch-linux_win-cuda102`.
-9. If you machine is a Mac, run `poetry run poe pyg-osx`. If not, run `poetry run poe pyg-linux_win-cuda102`.
+9. If your machine is a Mac, run `poetry run poe pyg-osx`. If not, run `poetry run poe pyg-linux_win-cuda102`.
 
 ## Dependencies
 As can be seen in `pyproject.toml`, `polygnn` depends on several other packages, including [`polygnn_trainer`](https://github.com/rishigurnani/polygnn_trainer), 
