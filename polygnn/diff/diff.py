@@ -1,10 +1,7 @@
 from polygnn_kit.polygnn_kit import LadderPolymer
-from rdkit.Chem import Draw
 from torch_geometric.loader import DataLoader
 import numpy as np
 from torch import nonzero, is_tensor
-from rdkit.Chem.Draw import rdMolDraw2D
-from cairosvg import svg2png
 
 from polygnn.featurize import (
     construct_polymer_graph_trimer,
@@ -120,23 +117,6 @@ def multiply_and_cyclize_pol(lp, n_repeat):
         molecule = pm
 
     return molecule
-
-
-def save_pngs_1(mol, mol_cyc1, mol_cyc2, path):
-    mol_with_atom_index(mol)
-    mol_with_atom_index(mol_cyc1)
-    mol_with_atom_index(mol_cyc2)
-    img = Draw.MolsToGridImage([mol, mol_cyc1, mol_cyc2], subImgSize=(900, 900))
-    img.save(path)
-
-
-def save_pngs_2(mol, path):
-
-    d2d = rdMolDraw2D.MolDraw2DSVG(600, 600)
-    d2d.drawOptions().addBondIndices = True
-    d2d.DrawMolecule(mol)
-    d2d.FinishDrawing()
-    svg2png(bytestring=d2d.GetDrawingText(), write_to=path)
 
 
 def check_model_intensiveness(
