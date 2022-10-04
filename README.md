@@ -1,6 +1,6 @@
 # polygnn
 
-This repository contains the code and environment used to train the machine learning models presented in a companion paper, *polyGNN: Multitask graph neural networks for polymer informatics*.
+This repository contains the code and environment used to train the machine learning models presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://arxiv.org/abs/2209.13557).
 
 ## Installation
 This repository is currently set up to run on 1) Mac OSX and 2) Linux/Windows machines with CUDA 10.2. Please raise a GitHub issue if you want to use this repo with a different configuration. Otherwise, please follow these steps for installation:
@@ -30,5 +30,26 @@ To train polygnn models run: `poetry run python example.py --polygnn`. To train 
 
 Looking at `sample_data/sample.csv`, you will notice that this dataset contains multiple different properties (e.g., band gap, electron affinity, etc.). In `example.py`, we use this data to train a multitask model, capable of predicting each property. To train your own multitask model, you can replace `sample_data/sample.csv` with your own dataset containing multiple properties. Single task models are also supported.
 
+## Citation
+If you use this repository in your work please consider citing us.
+```
+@misc{https://doi.org/10.48550/arxiv.2209.13557,
+  doi = {10.48550/ARXIV.2209.13557},
+  
+  url = {https://arxiv.org/abs/2209.13557},
+  
+  author = {Gurnani, Rishi and Kuenneth, Christopher and Toland, Aubrey and Ramprasad, Rampi},
+  
+  keywords = {Materials Science (cond-mat.mtrl-sci), FOS: Physical sciences, FOS: Physical sciences},
+  
+  title = {Polymer informatics at-scale with multitask graph neural networks},
+  
+  publisher = {arXiv},
+  
+  year = {2022},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
 ## License
 This repository is protected under a General Public Use License Agreement, the details of which can be found in `GT Open Source General Use License.pdf`.
