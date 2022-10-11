@@ -1,14 +1,14 @@
 # example.py shows how to train a multi-task polyGNN starting from data
 # with three columns: "smiles_string", "prop", and "value". But what if
 # we have additional metadata that we want the model to use, for example
-# temperature or structural parameters? These parameters can leveraged
+# temperature or structural parameters? These parameters can be leveraged
 # by adding another column, "graph_feats", to your data file.
 #
 # This file walks through such an example. We model three
 # properties: band gap (Eg), electron affinity (Ea) and
 # ionization potential (Ei). However, we may predict the Eg of either
-# the chain or the bulk (e.g., crystal) representation of the polymer. This metadata
-# will be specified in "graph_feats"
+# the chain or the bulk (i.e., crystal) representation of the polymer. This metadata
+# will be specified in "graph_feats".
 
 from nndebugger import dl_debug
 import pandas as pd
@@ -97,7 +97,8 @@ master_data.loc[master_data["prop"] == "Egb", "prop"] = "Eg"
 master_data.loc[master_data["prop"] != "Eg", "graph_feats"] = [
     {"chain": 0, "bulk": 0}
 ] * (len(master_data) - n_Egc - n_Egb)
-# Print out 10 random rows of master_data to see how the data has changed.
+# Print out 10 random rows of master_data to see how the data has changed
+# compared to "sample.csv".
 print(master_data.sample(n=10))
 print("\n")
 # #####################################################################
