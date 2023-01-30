@@ -43,7 +43,6 @@ HP_NCALLS = 10  # companion paper used 25
 MAX_BATCH_SIZE = 50  # companion paper used 450
 capacity_ls = list(range(2, 6))  # companion paper used list(range(2, 14))
 weight_decay = 0
-N_PASSES = 2  # companion paper used 10
 
 start = time.time()
 # The companion paper trains multi-task (MT) models for six groups. In this
@@ -328,7 +327,7 @@ for group in PROPERTY_GROUPS:
         dataframe=group_test_data,
         smiles_featurizer=smiles_featurizer,
         device=device,
-        ensemble_kwargs_dict={"n_passes": N_PASSES},
+        ensemble_kwargs_dict={"monte_carlo": False},
     )
     pt.utils.mt_print_metrics(
         y, y_mean_hat, _selectors, scaler_dict, inverse_transform=False
