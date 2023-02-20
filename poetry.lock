@@ -471,7 +471,7 @@ pandas = ">=1.1,<1.2"
 type = "git"
 url = "https://github.com/rishigurnani/polygnn_trainer.git"
 reference = "main"
-resolved_reference = "42aee67a8446dd018d8d17171dcbd7e09d832893"
+resolved_reference = "89af692287d2daf84b10e95b6a000a46f11b98db"
 
 [[package]]
 name = "prompt-toolkit"
