@@ -62,10 +62,4 @@ class polyGNN(pt.std_module.StandardModule):
         x = torch.cat((x, selector), dim=1)
         x = self.final_mlp(x)  # hidden layers
         x = self.out_layer(x)  # output layer
-        x = torch.clip(  # prevent inf and -inf
-            x,
-            min=-0.5,
-            max=1.5,  # choose -0.5 and 1.5 since the output should be between 0 and 1
-        )
-        x[torch.isnan(x)] = 1.5  # prevent nan
         return x.view(data.num_graphs, 1)  # get the shape right

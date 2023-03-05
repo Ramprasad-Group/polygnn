@@ -54,5 +54,9 @@ If you use this repository in your work please consider citing us.
   copyright = {arXiv.org perpetual, non-exclusive license}
 }
 ```
+
+## Companion paper
+The results shown in the companion paper were generated using v0.2.0 of this package.
+
 ## License
 This repository is protected under a General Public Use License Agreement, the details of which can be found in `GT Open Source General Use License.pdf`.
