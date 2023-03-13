@@ -34,28 +34,27 @@ elif args.polygnn and args.polygnn2:
 # #########
 # For improved speed, some settings below differ from those used in the
 # companion paper. In such cases, the values used in the paper are provided
-# as a comment.
+# as a comment. If you are using this file as a template to train a new
+# model, then it is recommended to use the values from the companion paper.
 RANDOM_SEED = 100
-HP_EPOCHS = 20  # companion paper used 200
-SUBMODEL_EPOCHS = 100  # companion paper used 1000
-N_FOLDS = 3  # companion paper used 5
+# HP_NCALLS is the number of points to sample in the hyperparameter (HP)
+# space.
 HP_NCALLS = 10  # companion paper used 25
+# HP_EPOCHS is the number of training epochs per HP point.
+HP_EPOCHS = 20  # companion paper used 200
+# N_FOLDS is the number of folds to use during cross-validation. One submodel
+# is trained per fold.
+N_FOLDS = 3  # companion paper used 5
+# SUBMODEL_EPOCHS is the number of training epochs per submodel.
+SUBMODEL_EPOCHS = 100  # companion paper used 1000
+# MAX_BATCH_SIZE is the maximum batch size. This should be smaller than the
+# number of data points in your data set. The upper limit of this parameter
+# depends on how much memory your GPU/CPU has. 450 was suitable for a 32GB
+# GPU.
 MAX_BATCH_SIZE = 50  # companion paper used 450
+# capacity_ls is a list of capacity values to try.
 capacity_ls = list(range(2, 6))  # companion paper used list(range(2, 14))
 weight_decay = 0
-
-start = time.time()
-# The companion paper trains multi-task (MT) models for six groups. In this
-# example file, we will only train an MT model for electronic properties.
-PROPERTY_GROUPS = {
-    "electronic": [
-        "Egc",
-        "Egb",
-        "Ea",
-        "Ei",
-    ],
-}
-
 bond_config = polygnn.featurize.BondConfig(True, True, True)
 atom_config = polygnn.featurize.AtomConfig(
     True,
@@ -80,9 +79,29 @@ if args.device == "cpu":
 elif args.device == "gpu":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # specify GPU
 
+start = time.time()
+# The companion paper trains multi-task (MT) models for six groups. In this
+# example file, we will only train an MT model for electronic properties. If
+# you are using this file as a template to train a new model, then change
+# PROPERTY_GROUPS to suit your data set. The keys are names of property
+# groups and the values are lists of properties that belong to the group.
+# IMPORTANT: each element of each list should be included at least once
+# in the "prop" column of your data set.
+PROPERTY_GROUPS = {
+    "electronic": [
+        "Egc",
+        "Egb",
+        "Ea",
+        "Ei",
+    ],
+}
+    
+    
 # Load data. This data set is a subset of the data used to train the
 # electronic-properties MT models shown in the companion paper. The full
-# data set can be found at khazana.gatech.edu.
+# data set can be found at khazana.gatech.edu. If you are using this file
+# as a template to train a new model, then load in your data set instead
+# of "sample.csv".
 master_data = pd.read_csv("./sample_data/sample.csv")
 
 # Split the data.
@@ -106,8 +125,11 @@ smiles_featurizer = lambda x: polygnn.featurize.get_minimum_graph_tensor(
     featurization_scheme,
 )
 
-# Make a directory to save our models in.
-mkdir("example_models/")
+# Make a directory to save our models in. If you are using this file
+# as a template to train a new model, then feel free to change this
+# name to suit your use case.
+parent_dir = "example_models/"
+mkdir(parent_dir)
 
 # Train one model per group. We only have one group, "electronic", in this
 # example file.
@@ -120,7 +142,7 @@ for group in PROPERTY_GROUPS:
 
     selector_dim = len(prop_cols)
     # Define a directory to save the models for this group of properties.
-    root_dir = "example_models/" + group
+    root_dir = parent_dir + group
 
     group_train_data = train_data.loc[train_data.prop.isin(prop_cols), :]
     group_test_data = test_data.loc[test_data.prop.isin(prop_cols), :]
