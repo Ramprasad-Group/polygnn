@@ -4,16 +4,11 @@ from torch import tensor, FloatTensor, nn
 import polygnn_trainer as pt
 import numpy as np
 
-from polygnn import __version__
 from polygnn import models
 from polygnn import layers as layers
 from polygnn import featurize as feat
 from polygnn import diff
 from polygnn.trimer import TrimerLadder, TrimerLinear
-
-
-def test_version():
-    assert __version__ == "0.1.0"
 
 
 @pytest.fixture
