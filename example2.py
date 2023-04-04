@@ -151,7 +151,12 @@ for group in PROPERTY_GROUPS:
         f"Working on group {group}. The following properties will be modeled: {prop_cols}",
         flush=True,
     )
-
+    # For single task models, `selector_dim` should equal 0. `selector_dim` refers to the
+    # dimension of the selector vector. For multi-task data, `polygnn.prepare.prepare_train`
+    # will, for each row in your data, create a selector vector. Each vector contains one
+    # dimension per task. For single task, `polygnn.prepare.prepare_train` creates an empty
+    # selector vector, so the dimension is equal to 0. But since this example file deals
+    # with multi-task models, I use `selector_dim = len(prop_cols)`.
     selector_dim = len(prop_cols)
     # Define a directory to save the models for this group of properties.
     root_dir = "example_models/" + group
