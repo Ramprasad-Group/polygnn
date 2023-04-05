@@ -11,25 +11,24 @@
 # will be specified in "graph_feats".
 
 from nndebugger import dl_debug
-import pandas as pd
-
-pd.options.mode.chained_assignment = None
-import numpy as np
-import torch
-
-dtype = torch.cuda.FloatTensor
-from torch import nn
-import numpy as np
+import argparse
+import time
 import random
+import pandas as pd
+import numpy as np
+from os import mkdir
 from tqdm import tqdm
-import polygnn_trainer as pt
-import polygnn
 from skopt import gp_minimize
 from sklearn.model_selection import train_test_split
-from os import mkdir
-import time
-import argparse
+import torch
+from torch import nn
+import polygnn
+import polygnn_trainer as pt
 
+
+pd.options.mode.chained_assignment = None
+
+# parse command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--polygnn", default=False, action="store_true")
 parser.add_argument("--polygnn2", default=False, action="store_true")
@@ -140,17 +139,22 @@ smiles_featurizer = lambda x: polygnn.featurize.get_minimum_graph_tensor(
     featurization_scheme,
 )
 
-# Make a directory to save our models in.
-mkdir("example_models/")
+# Make a directory to save our models in. If you are using this file
+# as a template to train a new model, then feel free to change this
+# name to suit your use case.
+parent_dir = "example_models/"
+mkdir(parent_dir)
 
 # Train one model per group. We only have one group, "electronic", in this
 # example file.
 for group in PROPERTY_GROUPS:
+    # Get the columns of the properties to be modeled for this group.
     prop_cols = sorted(PROPERTY_GROUPS[group])
     print(
         f"Working on group {group}. The following properties will be modeled: {prop_cols}",
         flush=True,
     )
+
     # For single task models, `selector_dim` should equal 0. `selector_dim` refers to the
     # dimension of the selector vector. For multi-task data, `polygnn.prepare.prepare_train`
     # will, for each row in your data, create a selector vector. Each vector contains one
@@ -158,11 +162,15 @@ for group in PROPERTY_GROUPS:
     # selector vector, so the dimension is equal to 0. But since this example file deals
     # with multi-task models, I use `selector_dim = len(prop_cols)`.
     selector_dim = len(prop_cols)
-    # Define a directory to save the models for this group of properties.
-    root_dir = "example_models/" + group
 
+    # Define a directory to save the trained model for this group of properties.
+    root_dir = parent_dir + group
+
+    # Get the data for this group.
     group_train_data = train_data.loc[train_data.prop.isin(prop_cols), :]
     group_test_data = test_data.loc[test_data.prop.isin(prop_cols), :]
+
+    # Define the augmented_featurizer function for this group based on the input arguments.
     if args.polygnn:
         # Create a dictionary of graph tensors for each smiles string
         # in the data set. Creating this dictionary here instead of inside
@@ -178,10 +186,11 @@ for group in PROPERTY_GROUPS:
             )
             for x in tqdm(group_train_data.smiles_string.values.tolist())
         }
-
         augmented_featurizer = lambda x: random.sample(eq_graph_tensors[x], k=1)[0]
     elif args.polygnn2:
+        # polygnn2 requires no augmentation.
         augmented_featurizer = None
+
     ######################
     # prepare data
     ######################
@@ -262,7 +271,7 @@ for group in PROPERTY_GROUPS:
         tc_search = pt.train.trainConfig(
             hps=hps,
             device=device,
-            amp=False,  # False since we are on T2
+            amp=False,
             multi_head=False,
             loss_obj=pt.loss.sh_mse_loss(),
         )  # trainConfig for the hp search

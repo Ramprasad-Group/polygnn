@@ -1,23 +1,22 @@
 from nndebugger import dl_debug
-import pandas as pd
-
-pd.options.mode.chained_assignment = None
-import numpy as np
-import torch
-
-dtype = torch.cuda.FloatTensor
-from torch import nn
-import numpy as np
+import argparse
+import time
 import random
+import pandas as pd
+import numpy as np
+from os import mkdir
 from tqdm import tqdm
-import polygnn_trainer as pt
-import polygnn
 from skopt import gp_minimize
 from sklearn.model_selection import train_test_split
-from os import mkdir
-import time
-import argparse
+import torch
+from torch import nn
+import polygnn
+import polygnn_trainer as pt
 
+
+pd.options.mode.chained_assignment = None
+
+# parse command line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--polygnn", default=False, action="store_true")
 parser.add_argument("--polygnn2", default=False, action="store_true")
@@ -95,8 +94,8 @@ PROPERTY_GROUPS = {
         "Ei",
     ],
 }
-    
-    
+
+
 # Load data. This data set is a subset of the data used to train the
 # electronic-properties MT models shown in the companion paper. The full
 # data set can be found at khazana.gatech.edu. If you are using this file
@@ -134,11 +133,13 @@ mkdir(parent_dir)
 # Train one model per group. We only have one group, "electronic", in this
 # example file.
 for group in PROPERTY_GROUPS:
+    # Get the columns of the properties to be modeled for this group.
     prop_cols = sorted(PROPERTY_GROUPS[group])
     print(
         f"Working on group {group}. The following properties will be modeled: {prop_cols}",
         flush=True,
     )
+
     # For single task models, `selector_dim` should equal 0. `selector_dim` refers to the
     # dimension of the selector vector. For multi-task data, `polygnn.prepare.prepare_train`
     # will, for each row in your data, create a selector vector. Each vector contains one
@@ -146,11 +147,15 @@ for group in PROPERTY_GROUPS:
     # selector vector, so the dimension is equal to 0. But since this example file deals
     # with multi-task models, I use `selector_dim = len(prop_cols)`.
     selector_dim = len(prop_cols)
-    # Define a directory to save the models for this group of properties.
+
+    # Define a directory to save the trained model for this group of properties.
     root_dir = parent_dir + group
 
+    # Get the data for this group.
     group_train_data = train_data.loc[train_data.prop.isin(prop_cols), :]
     group_test_data = test_data.loc[test_data.prop.isin(prop_cols), :]
+
+    # Define the augmented_featurizer function for this group based on the input arguments.
     if args.polygnn:
         # Create a dictionary of graph tensors for each smiles string
         # in the data set. Creating this dictionary here instead of inside
@@ -166,10 +171,11 @@ for group in PROPERTY_GROUPS:
             )
             for x in tqdm(group_train_data.smiles_string.values.tolist())
         }
-
         augmented_featurizer = lambda x: random.sample(eq_graph_tensors[x], k=1)[0]
     elif args.polygnn2:
+        # polygnn2 requires no augmentation.
         augmented_featurizer = None
+
     ######################
     # prepare data
     ######################
@@ -305,7 +311,7 @@ for group in PROPERTY_GROUPS:
     # Train submodels
     # ################
     tc_ensemble = pt.train.trainConfig(
-        amp=False,  # False since we are on T2
+        amp=False,
         loss_obj=pt.loss.sh_mse_loss(),
         hps=optimal_hps,
         device=device,
