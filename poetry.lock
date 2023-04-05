@@ -76,11 +76,11 @@ pycparser = "*"
 
 [[package]]
 name = "click"
-version = "8.1.3"
+version = "8.0.2"
 description = "Composable command line interface toolkit"
 category = "dev"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.6"
 
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
@@ -773,7 +773,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "864d0814c0bfc215287af96b7e19c81a78894aaee0a82e08764d238ced5ae2c8"
+content-hash = "bd845bb2eda83b65ca60a6eaac3c14b5556ea148f84200901f0cb428d228bb33"
 
 [metadata.files]
 appnope = []

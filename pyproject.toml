@@ -20,6 +20,7 @@ pytest = "^5.2"
 black = "^21.12b0"
 wheel = "^0.37.1"
 poethepoet = "^0.10.0"
+click = "8.0.2"
 
 [tool.poe.tasks]
 torch-osx = "pip install torch==1.9.1 torchvision==0.10.1 torchaudio==0.9.1"
