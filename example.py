@@ -225,10 +225,11 @@ for group in PROPERTY_GROUPS:
     )
     optimal_capacity = session.choose_model_size_by_overfit()
 
-    # ###############
-    # do hparams opt
-    # ###############
-    # split train and val data
+    # #################################
+    # Do hyperparameters optimization.
+    # #################################
+
+    # Split train and validation data.
     group_fit_data, group_val_data = train_test_split(
         group_train_data,
         test_size=0.2,
@@ -238,9 +239,10 @@ for group in PROPERTY_GROUPS:
     fit_pts = group_fit_data.data.values.tolist()
     val_pts = group_val_data.data.values.tolist()
     print(
-        f"\nStarting hp opt. Using {len(fit_pts)} data points for fitting, {len(val_pts)} data points for validation."
+        f"\nStarting hyperparameter optimization. Using {len(fit_pts)} data points for fitting, {len(val_pts)} data points for validation."
     )
-    # create objective function
+
+    # Define the objective function.
     def obj_func(x):
         hps = pt.hyperparameters.HpConfig()
         hps.set_values(
@@ -256,10 +258,10 @@ for group in PROPERTY_GROUPS:
         tc_search = pt.train.trainConfig(
             hps=hps,
             device=device,
-            amp=False,  # False since we are on T2
+            amp=False,
             multi_head=False,
             loss_obj=pt.loss.sh_mse_loss(),
-        )  # trainConfig for the hp search
+        )  # trainConfig for the hyperparameter search.
         tc_search.epochs = HP_EPOCHS
 
         model = polygnn.models.polyGNN(
@@ -277,21 +279,22 @@ for group in PROPERTY_GROUPS:
         )
         return val_rmse
 
-    # create hyperparameter space
+    # Define the hyperparameter space.
     hp_space = [
-        (np.log10(0.0003), np.log10(0.03)),  # learning rate
-        (round(0.25 * MAX_BATCH_SIZE), MAX_BATCH_SIZE),  # batch size
-        (0, 0.5),  # dropout
+        (np.log10(0.0003), np.log10(0.03)),  # learning rate.
+        (round(0.25 * MAX_BATCH_SIZE), MAX_BATCH_SIZE),  # batch size.
+        (0, 0.5),  # dropout.
     ]
 
-    # obtain the optimal point in hp space
+    # Obtain the optimal point in hyperparameter space.
     opt_obj = gp_minimize(
-        func=obj_func,  # defined offline
+        func=obj_func,  # defined offline.
         dimensions=hp_space,
         n_calls=HP_NCALLS,
         random_state=RANDOM_SEED,
     )
-    # create an HpConfig from the optimal point in hp space
+
+    # Create an HpConfig from the optimal point in hyperparameter space.
     optimal_hps = pt.hyperparameters.HpConfig()
     optimal_hps.set_values(
         {
@@ -302,22 +305,21 @@ for group in PROPERTY_GROUPS:
             "activation": nn.functional.leaky_relu,
         }
     )
-    print(f"Optimal hps are {opt_obj.x}")
-    # clear memory
+    print(f"Optimal hyperparameters are {opt_obj.x}.")
+
+    # Clear memory.
     del group_fit_data
     del group_val_data
 
-    # ################
-    # Train submodels
-    # ################
-    tc_ensemble = pt.train.trainConfig(
+    # Train submodels.
+    ensemble_train_config = pt.train.trainConfig(
         amp=False,
         loss_obj=pt.loss.sh_mse_loss(),
         hps=optimal_hps,
         device=device,
         multi_head=False,
     )  # trainConfig for the ensemble step
-    tc_ensemble.epochs = SUBMODEL_EPOCHS
+    ensemble_train_config.epochs = SUBMODEL_EPOCHS
     print(f"\nTraining ensemble using {len(group_train_data)} data points.")
     pt.train.train_kfold_ensemble(
         dataframe=group_train_data,
@@ -327,7 +329,7 @@ for group in PROPERTY_GROUPS:
             selector_dim=selector_dim,
             hps=optimal_hps,
         ),
-        train_config=tc_ensemble,
+        train_config=ensemble_train_config,
         submodel_trainer=pt.train.train_submodel,
         augmented_featurizer=augmented_featurizer,
         scaler_dict=scaler_dict,
@@ -335,10 +337,9 @@ for group in PROPERTY_GROUPS:
         n_fold=N_FOLDS,
         random_seed=RANDOM_SEED,
     )
-    ##########################################
-    # Load and evaluate ensemble on test data
-    ##########################################
-    print("\nRunning predictions on test data", flush=True)
+
+    # Load and evaluate ensemble on test data.
+    print("\nRunning predictions on test data.", flush=True)
     ensemble = pt.load.load_ensemble(
         root_dir,
         polygnn.models.polyGNN,
@@ -349,7 +350,7 @@ for group in PROPERTY_GROUPS:
             "selector_dim": selector_dim,
         },
     )
-    # remake "group_test_data" so that "graph_feats" contains dicts not arrays
+    # Remake "group_test_data" so that "graph_feats" contains dicts not arrays.
     group_test_data = test_data.loc[
         test_data.prop.isin(prop_cols),
         :,
@@ -365,7 +366,7 @@ for group in PROPERTY_GROUPS:
     pt.utils.mt_print_metrics(
         y, y_mean_hat, _selectors, scaler_dict, inverse_transform=False
     )
-    print(f"Done working on group {group}\n", flush=True)
+    print(f"Done working on group {group}.\n", flush=True)
 
 end = time.time()
 print(f"Done with everything in {end-start} seconds.", flush=True)
