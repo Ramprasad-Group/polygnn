@@ -1,6 +1,6 @@
 # polygnn
 
-This repository contains the code and environment used to train the machine learning models presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://arxiv.org/abs/2209.13557).
+This repository contains the code and environment used to train the machine learning models presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991).
 
 ## Installation
 This repository is currently set up to run on 1) Mac OSX and 2) Linux/Windows machines with CUDA 10.2. Please raise a GitHub issue if you want to use this repo with a different configuration. Otherwise, follow these steps for installation:
