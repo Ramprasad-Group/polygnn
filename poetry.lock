@@ -456,7 +456,7 @@ resolved_reference = "d38127486433e7fea7246e039379939f5e472755"
 
 [[package]]
 name = "polygnn-trainer"
-version = "0.4.0"
+version = "0.4.2"
 description = ""
 category = "main"
 optional = false
@@ -471,7 +471,7 @@ pandas = ">=1.1,<1.2"
 type = "git"
 url = "https://github.com/rishigurnani/polygnn_trainer.git"
 reference = "main"
-resolved_reference = "8cb1327306c23ead74974e9c2cefa5c333b73427"
+resolved_reference = "ce737015a0ae4e88408fcc5fb022518758c2619c"
 
 [[package]]
 name = "prompt-toolkit"
