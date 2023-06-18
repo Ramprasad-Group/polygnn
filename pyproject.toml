@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "polygnn"
-version = "1.0.2"
+version = "1.0.3"
 description = ""
 authors = ["Rishi Gurnani <rgurnani96@gmail.com>"]
 
@@ -18,7 +18,6 @@ ipykernel = "^6.6.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^21.12b0"
-wheel = "^0.37.1"
 poethepoet = "^0.10.0"
 click = "8.0.2"
 
