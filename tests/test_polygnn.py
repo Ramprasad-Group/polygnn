@@ -1,8 +1,10 @@
 from polygnn_kit.polygnn_kit import LadderPolymer, LinearPol
 import pytest
-from torch import tensor, FloatTensor, nn
+from torch import tensor, FloatTensor, nn, optim
 import polygnn_trainer as pt
 import numpy as np
+from copy import deepcopy
+from torch_geometric.loader import DataLoader
 
 from polygnn import models
 from polygnn import layers as layers
@@ -47,6 +49,7 @@ def example_data():
     for x in train_X + val_X:
         x.y = tensor(1.3)  # set dummy y value for each data point
         x.selector = FloatTensor([[1, 0]]).detach()
+        x.graph_feats = tensor([[]])
     return {
         "model": models.polyGNN(
             node_size=atom_config.n_features,
@@ -71,6 +74,42 @@ def example_data():
         },
         "bond_config": bond_config,
         "atom_config": atom_config,
+        "hps": hps,
+    }
+
+
+@pytest.fixture
+def example_data2(example_data):
+    """
+    Returns example data with graph features.
+    """
+    train_smiles = ["[*]CC[*]", "[*]CC[*]", "[*]CC[*]"]
+    train_X = [
+        feat.get_minimum_graph_tensor(
+            x, example_data["bond_config"], example_data["atom_config"], "monocycle"
+        )
+        for x in train_smiles
+    ]
+
+    for ind, x in enumerate(train_X):
+        # Set dummy y value, selector, and graph_feats for each data point
+        x.y = tensor(1.3)
+        x.selector = FloatTensor([[1, 0]]).detach()
+
+        if ind == 0:
+            x.graph_feats = tensor([[1.0, 0.0]])
+        else:
+            x.graph_feats = tensor([[0.0, 0.0]])
+
+    return {
+        "train_X": train_X,
+        "model": models.polyGNN(
+            node_size=example_data["atom_config"].n_features,
+            edge_size=example_data["bond_config"].n_features,
+            selector_dim=x.selector.shape[1],
+            hps=example_data["hps"],
+            graph_feats_dim=x.graph_feats.shape[1],
+        ),
     }
 
 
@@ -124,6 +163,71 @@ def test_model_training(example_data):
     )
 
     assert True
+
+
+def test_graph_feats(example_data, example_data2):
+    """
+    This test checks:
+    - The model predictions change when different graph_feats are used.
+    """
+
+    # Set up training configuration
+    train_config = pt.train.trainConfig(
+        loss_obj=pt.loss.sh_mse_loss(),  # Loss function
+        amp=False,
+        device="cpu",
+        epoch_suffix="",
+        multi_head=False,
+    )
+
+    hps = pt.hyperparameters.HpConfig()
+    hps.set_values(
+        {
+            "batch_size": 2,
+            "r_learn": 0.01,
+            "capacity": 2,
+            "hps": len(example_data2["train_X"]),
+        }
+    )
+    train_config.hps = hps
+    train_config.epochs = 2
+    train_config.fold_index = -1
+
+    # Create data loader
+    train_loader = DataLoader(
+        example_data2["train_X"],
+        batch_size=len(example_data2["train_X"]),
+        shuffle=False,
+    )
+
+    # Initialize optimizer
+    optimizer = optim.Adam(
+        example_data2["model"].parameters(),
+        lr=train_config.hps.r_learn.value,  # Learning rate
+    )
+    for _, data in enumerate(train_loader):
+        data = data.to(train_config.device)
+
+        # Perform GPU-compatible augmentations.
+        for fn in train_config.augmentations:
+            data = fn(data)
+
+        # Run the forward pass.
+        output = (
+            pt.train.amp_train(
+                example_data2["model"],
+                data,
+                optimizer,
+                train_config,
+                example_data2["train_X"][0].selector.shape[0],  # Number of selectors
+            )
+            .squeeze()
+            .detach()
+        )
+
+    # Perform assertions
+    assert output[0] != output[1]
+    assert output[1] == output[2]
 
 
 @pytest.mark.parametrize(
