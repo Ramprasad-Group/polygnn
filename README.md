@@ -36,22 +36,20 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 ## Citation
 If you use this repository in your work please consider citing us.
 ```
-@misc{https://doi.org/10.48550/arxiv.2209.13557,
-  doi = {10.48550/ARXIV.2209.13557},
-  
-  url = {https://arxiv.org/abs/2209.13557},
-  
-  author = {Gurnani, Rishi and Kuenneth, Christopher and Toland, Aubrey and Ramprasad, Rampi},
-  
-  keywords = {Materials Science (cond-mat.mtrl-sci), FOS: Physical sciences, FOS: Physical sciences},
-  
-  title = {Polymer informatics at-scale with multitask graph neural networks},
-  
-  publisher = {arXiv},
-  
-  year = {2022},
-  
-  copyright = {arXiv.org perpetual, non-exclusive license}
+@article{Gurnani2023,
+annote = {doi: 10.1021/acs.chemmater.2c02991},
+author = {Gurnani, Rishi and Kuenneth, Christopher and Toland, Aubrey and Ramprasad, Rampi},
+doi = {10.1021/acs.chemmater.2c02991},
+issn = {0897-4756},
+journal = {Chemistry of Materials},
+month = {feb},
+number = {4},
+pages = {1560--1567},
+publisher = {American Chemical Society},
+title = {{Polymer Informatics at Scale with Multitask Graph Neural Networks}},
+url = {https://doi.org/10.1021/acs.chemmater.2c02991},
+volume = {35},
+year = {2023}
 }
 ```
 
