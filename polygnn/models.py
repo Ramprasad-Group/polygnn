@@ -77,9 +77,9 @@ class polyGNN(pt.std_module.StandardModule):
         Returns:
             tensor: Output tensor.
         """
-        data.x = self.mpnn(data.x, data.edge_index, data.edge_weight, data.batch)
-        data.x = F.leaky_relu(data.x)
-        data.x = self.assemble_data(data)
-        data.x = self.final_mlp(data.x)
-        data.x = self.out_layer(data.x)
-        return data.x.view(data.num_graphs, 1)
+        data.yhat = self.mpnn(data.x, data.edge_index, data.edge_weight, data.batch)
+        data.yhat = F.leaky_relu(data.yhat)
+        data.yhat = self.assemble_data(data)
+        data.yhat = self.final_mlp(data.yhat)
+        data.yhat = self.out_layer(data.yhat)
+        return data.yhat.view(data.num_graphs, 1)
