@@ -224,6 +224,7 @@ for group in PROPERTY_GROUPS:
                 edge_size=bond_config.n_features,
                 selector_dim=selector_dim,
                 hps=hps,
+                graph_feats_dim=2,  # one for 'chain', one for 'bulk'.
             )
         )
 
@@ -284,6 +285,7 @@ for group in PROPERTY_GROUPS:
             edge_size=bond_config.n_features,
             selector_dim=selector_dim,
             hps=hps,
+            graph_feats_dim=2,  # one for 'chain', one for 'bulk'.
         )
         val_rmse = pt.train.train_submodel(
             model,
@@ -343,6 +345,7 @@ for group in PROPERTY_GROUPS:
             edge_size=bond_config.n_features,
             selector_dim=selector_dim,
             hps=optimal_hps,
+            graph_feats_dim=2,  # one for 'chain', one for 'bulk'.
         ),
         train_config=ensemble_train_config,
         submodel_trainer=pt.train.train_submodel,
@@ -363,6 +366,7 @@ for group in PROPERTY_GROUPS:
             "node_size": atom_config.n_features,
             "edge_size": bond_config.n_features,
             "selector_dim": selector_dim,
+            "graph_feats_dim": 2,  # one for 'chain', one for 'bulk'.
         },
     )
     # Remake "group_test_data" so that "graph_feats" contains dicts not arrays.
