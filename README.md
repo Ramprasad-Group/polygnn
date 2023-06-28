@@ -37,19 +37,19 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 If you use this repository in your work please consider citing us.
 ```
 @article{Gurnani2023,
-annote = {doi: 10.1021/acs.chemmater.2c02991},
-author = {Gurnani, Rishi and Kuenneth, Christopher and Toland, Aubrey and Ramprasad, Rampi},
-doi = {10.1021/acs.chemmater.2c02991},
-issn = {0897-4756},
-journal = {Chemistry of Materials},
-month = {feb},
-number = {4},
-pages = {1560--1567},
-publisher = {American Chemical Society},
-title = {{Polymer Informatics at Scale with Multitask Graph Neural Networks}},
-url = {https://doi.org/10.1021/acs.chemmater.2c02991},
-volume = {35},
-year = {2023}
+   annote = {doi: 10.1021/acs.chemmater.2c02991},
+   author = {Gurnani, Rishi and Kuenneth, Christopher and Toland, Aubrey and Ramprasad, Rampi},
+   doi = {10.1021/acs.chemmater.2c02991},
+   issn = {0897-4756},
+   journal = {Chemistry of Materials},
+   month = {feb},
+   number = {4},
+   pages = {1560--1567},
+   publisher = {American Chemical Society},
+   title = {{Polymer Informatics at Scale with Multitask Graph Neural Networks}},
+   url = {https://doi.org/10.1021/acs.chemmater.2c02991},
+   volume = {35},
+   year = {2023}
 }
 ```
 
