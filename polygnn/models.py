@@ -15,7 +15,7 @@ np.random.seed(2)
 # #########################
 class polyGNN(pt.std_module.StandardModule):
     """
-    Multi-task GNN model.
+    Multi-task GNN model for polymers.
     """
 
     def __init__(
