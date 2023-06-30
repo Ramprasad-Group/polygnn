@@ -33,6 +33,10 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 
 ### `example2.py`
 `example.py` is an example of how to train a multitask model with only SMILES strings as features. `example2.py` is an example of how to train a multitask model containing both SMILES and *non-SMILES* features. `example.py` and `example2.py` share the same flags. Read the comments in `example2.py` for more details.
+
+### `more_examples`
+A directory containing more example files. One of these files is `more_examples/example_predict.py`. It is an example of how to just do prediction using previously-trained models. This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
+
 ## Citation
 If you use this repository in your work please consider citing us.
 ```
