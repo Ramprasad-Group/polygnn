@@ -102,5 +102,6 @@ y, y_mean_hat, y_std_hat, _selectors = pt.infer.eval_ensemble(
 )
 
 # Print the results
+print()
 print("Mean prediction(s): ", y_mean_hat)
 print("Std. dev. of prediction(s): ", y_std_hat)
