@@ -37,6 +37,9 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 ### `more_examples`
 A directory containing more example files. One of these files is `more_examples/example_predict.py`. It is an example of how to just do prediction using previously-trained models. This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
 
+## Questions
+I'm more than happy to answer any questions about this codebase. If you encounter any troubles, please open a new Issue in the "Issues" tab and I will promptly respond. In addition, if you discover any bugs or have any suggestions to improve the codebase (documentation, features, etc.) please also open a new Issue. This is the power of open source!
+
 ## Citation
 If you use this repository in your work please consider citing us.
 ```
@@ -58,7 +61,7 @@ If you use this repository in your work please consider citing us.
 ```
 
 ## Companion paper
-The results shown in the companion paper were generated using v0.2.0 of this package.
+The results shown in the [companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991) were generated using v0.2.0 of this package.
 
 ## License
 This repository is protected under a General Public Use License Agreement, the details of which can be found in `GT Open Source General Use License.pdf`.
