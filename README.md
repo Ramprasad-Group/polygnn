@@ -1,6 +1,6 @@
 # polygnn
 
-This repository contains the code and environment used to train the machine learning models presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991).
+This repository contains the training code and model weights presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991).
 
 ## Installation
 This repository is currently set up to run on 1) Mac OSX and 2) Linux/Windows machines with CUDA 10.2. Please raise a GitHub issue if you want to use this repo with a different configuration. Otherwise, follow these steps for installation:
@@ -35,7 +35,9 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 `example.py` is an example of how to train a multitask model with only SMILES strings as features. `example2.py` is an example of how to train a multitask model containing both SMILES and *non-SMILES* features. `example.py` and `example2.py` share the same flags. Read the comments in `example2.py` for more details.
 
 ### `more_examples`
-A directory containing more example files. One of these files is `more_examples/example_predict.py`. It is an example of how to just do prediction using previously-trained models. This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
+A directory containing more example files.
+- One of these files is `more_examples/example_predict_trained_models.py`. It is an example of how to just do prediction using one of the models trained in the [companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991). The file shows how to get predictions for 36 different properties of polyethylene. Of course, you can change the polymer that you want to get predictions for, but the properties that can be predicted are fixed. If you want to make a prediction for a different property, then you'll need to train your own model (see `example.py` and `example2.py` for more details on training your own model).
+- Another one of these files is `more_examples/example_predict.py`. It is an example of how to just do prediction using a previously-trained model not included in the companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991). This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
 
 ## Questions
 I'm more than happy to answer any questions about this codebase. If you encounter any troubles, please open a new Issue in the "Issues" tab and I will promptly respond. In addition, if you discover any bugs or have any suggestions to improve the codebase (documentation, features, etc.) please also open a new Issue. This is the power of open source!
