@@ -1,0 +1,1 @@
+{"exp_Tg__K": "Forward(MinMaxScaler(dim: 0, max: 873.0, min: 80.0))", "exp_Tm__K": "Forward(MinMaxScaler(dim: 0, max: 860.0, min: 226.0))", "exp_thermal_conductivity__W_per_m_per_K": "Forward(MinMaxScaler(dim: 0, max: 0.49000000953674316, min: 0.10000000149011612))", "exp_thermal_decomposition_temperature__K": "Forward(MinMaxScaler(dim: 0, max: 1167.0, min: 291.0))"}

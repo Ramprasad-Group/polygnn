@@ -27,7 +27,6 @@ node_modules/
 creds.js
  
 # Private Files
-*.json
 *.csv.gz
 *.tsv
 *.tsv.gz
