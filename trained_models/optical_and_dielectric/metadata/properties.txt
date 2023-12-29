@@ -1,0 +1,12 @@
+DFT_dielectric_total
+DFT_refractive_index
+exp_dielectric_constant_1.78
+exp_dielectric_constant_15.0
+exp_dielectric_constant_2.0
+exp_dielectric_constant_3.0
+exp_dielectric_constant_4.0
+exp_dielectric_constant_5.0
+exp_dielectric_constant_6.0
+exp_dielectric_constant_7.0
+exp_dielectric_constant_9.0
+exp_refractive_index

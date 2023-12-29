@@ -1,0 +1,7 @@
+DFT_Eatomization__eV_per_atom
+exp_Cp__J_per_gK
+exp_crystallinity_HF
+exp_crystallinity_LF
+exp_free_fractional_volume
+exp_limiting_oxygen_index__percentage
+exp_rho__g_per_cc
