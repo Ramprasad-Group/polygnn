@@ -1,0 +1,4 @@
+exp_Tg__K
+exp_Tm__K
+exp_thermal_conductivity__W_per_m_per_K
+exp_thermal_decomposition_temperature__K

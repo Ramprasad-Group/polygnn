@@ -1,0 +1,1 @@
+{activation: leaky_relu; batch_size: 112; capacity: 2; dropout_pct: 0.0; graph_feats_scaler: Forward(); initializer: xavier_uniform_; node_feats_scaler: Forward(); norm: identity; optimizer: adam; r_learn: 0.0016166863275942646; swa_freq: 0; swa_start_frac: 0.0; weight_decay: 0.0}

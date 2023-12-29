@@ -1,0 +1,7 @@
+exp_perm_CH4__Barrer
+exp_perm_CO2__Barrer
+exp_perm_H2__Barrer
+exp_perm_He__Barrer
+exp_perm_N2__Barrer
+exp_perm_O2__Barrer
+exp_solubility__MPa**0.5

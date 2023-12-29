@@ -1,0 +1,4 @@
+DFT_EA__eV
+DFT_Eionization__eV
+DFT_bandgap_HF__eV
+DFT_bandgap_LF__eV
