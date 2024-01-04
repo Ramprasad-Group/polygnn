@@ -1,6 +1,8 @@
 ## Added by me
-*.pkl
 local/
+
+*.pkl
+!trained_models/*/metadata/features.pkl
 
 ## Copied from https://www.jcchouinard.com/gitignore-template/
 # VSCode
