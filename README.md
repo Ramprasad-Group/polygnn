@@ -40,7 +40,7 @@ A directory containing more example files.
 - `more_examples/example_predict.py` an example of how to just do prediction using a previously-trained model not included in the companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991). This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
 
 ## Questions
-I'm more than happy to answer any questions about this codebase. If you encounter any troubles, please open a new Issue in the "Issues" tab and I will promptly respond. In addition, if you discover any bugs or have any suggestions to improve the codebase (documentation, features, etc.) please also open a new Issue. This is the power of open source!
+I ([@rishigurnani](https://github.com/rishigurnani)) am more than happy to answer any questions about this codebase. If you encounter any troubles, please open a new Issue in the "Issues" tab and I will promptly respond. In addition, if you discover any bugs or have any suggestions to improve the codebase (documentation, features, etc.) please also open a new Issue. This is the power of open source!
 
 ## Citation
 If you use this repository in your work please consider citing us.
