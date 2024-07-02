@@ -67,6 +67,18 @@ class polyGNN(pt.std_module.StandardModule):
 
         self.out_layer = pt.layers.my_output(size_in=32, size_out=1)
 
+    def get_polymer_fps(self, data):
+        """
+        Get the polymer fingerprints by passing the data through the MPNN.
+
+        Args:
+            data (Data): Input data.
+
+        Returns:
+            tensor: Output fingerprint tensor.
+        """
+        return self.mpnn(data.x, data.edge_index, data.edge_weight, data.batch)
+
     def forward(self, data):
         """
         Forward pass of the model.
@@ -77,7 +89,7 @@ class polyGNN(pt.std_module.StandardModule):
         Returns:
             tensor: Output tensor.
         """
-        data.yhat = self.mpnn(data.x, data.edge_index, data.edge_weight, data.batch)
+        data.yhat = self.get_polymer_fps(data)
         data.yhat = F.leaky_relu(data.yhat)
         data.yhat = self.assemble_data(data)
         data.yhat = self.final_mlp(data.yhat)
