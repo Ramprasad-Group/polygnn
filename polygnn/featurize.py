@@ -238,6 +238,8 @@ class BondConfig:
     bond_type: bool
     conjugation: bool
     ring: bool
+    stereo: bool
+    bond_dir: bool
 
     def __post_init__(self):
         self.n_features = 0
@@ -257,6 +259,29 @@ class BondConfig:
             self.n_features += 1
             self.feat_names += ["inRing"]
 
+        if self.stereo:
+            self.n_features += 6
+            self.feat_names += [
+                "any",
+                "cis",
+                "e",
+                "none",
+                "trans",
+                "z",
+            ]
+
+        if self.bond_dir:
+            self.n_features += 7
+            self.feat_names += [
+                "begin_dash",
+                "begin_wedge",
+                "either_double",
+                "end_down_right",
+                "end_up_right",
+                "none",
+                "unknown",
+            ]
+
 
 @dataclass
 class AtomConfig:
@@ -273,6 +298,7 @@ class AtomConfig:
     hybridization: bool
     combo_hybrid: bool  # if True, sp2 and sp3 will be merged into one feature
     aromatic: bool
+    chirality: bool
 
     def __post_init__(self):
         self.n_features = 0
@@ -315,6 +341,21 @@ class AtomConfig:
         if self.aromatic:
             update(["Aromatic"])
 
+        if self.chirality:
+            update(
+                [
+                    "Unspecified",
+                    "Tetrahedral_CW",
+                    "Tetrahedral_CCW",
+                    "Other",
+                    "Tetrahedral",
+                    "Allene",
+                    "Square_planar",
+                    "Trigonal_bipyramidal",
+                    "Octahedral",
+                ]
+            )
+
 
 def bond_fp(bond, config):
     """Helper method used to compute bond feature vectors.
@@ -347,6 +388,28 @@ def bond_fp(bond, config):
         bond_feats.append(bond.GetIsConjugated())
     if config.ring:
         bond_feats.append(bond.IsInRing())
+
+    if config.stereo:
+        stereo = bond.GetStereo()
+        bond_feats += [
+            stereo == Chem.rdchem.BondStereo.STEREOANY,
+            stereo == Chem.rdchem.BondStereo.STEREOCIS,
+            stereo == Chem.rdchem.BondStereo.STEREOE,
+            stereo == Chem.rdchem.BondStereo.STEREONONE,
+            stereo == Chem.rdchem.BondStereo.STEREOTRANS,
+            stereo == Chem.rdchem.BondStereo.STEREOZ,
+        ]
+
+    if config.bond_dir:
+        bond_feats += [
+            bond.GetBondDir() == Chem.rdchem.BondDir.BEGINDASH,
+            bond.GetBondDir() == Chem.rdchem.BondDir.BEGINWEDGE,
+            bond.GetBondDir() == Chem.rdchem.BondDir.EITHERDOUBLE,
+            bond.GetBondDir() == Chem.rdchem.BondDir.ENDDOWNRIGHT,
+            bond.GetBondDir() == Chem.rdchem.BondDir.ENDUPRIGHT,
+            bond.GetBondDir() == Chem.rdchem.BondDir.NONE,
+            bond.GetBondDir() == Chem.rdchem.BondDir.UNKNOWN,
+        ]
 
     return bond_feats
 
@@ -499,6 +562,20 @@ def atom_fp(atom, atom_config: AtomConfig):
         results += one_of_k_encoding_unk(feat, options)
     if atom_config.aromatic:
         results += [atom.GetIsAromatic()]
+
+    if atom_config.chirality:
+        tag = str(atom.GetChiralTag())
+        results += [
+            tag == "CHI_UNSPECIFIED",
+            tag == "CHI_TETRAHEDRAL_CW",
+            tag == "CHI_TETRAHEDRAL_CCW",
+            tag == "CHI_OTHER",
+            tag == "CHI_TETRAHEDRAL",
+            tag == "CHI_ALLENE",
+            tag == "CHI_SQUAREPLANAR",
+            tag == "CHI_TRIGONALBIPYRAMIDAL",
+            tag == "CHI_OCTAHEDRAL",
+        ]
 
     return results
 

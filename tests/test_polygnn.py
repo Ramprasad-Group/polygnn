@@ -27,7 +27,7 @@ def example_data():
     )
     train_smiles = ["[*]CC[*]", "[*]CC(C)[*]"]
     val_smiles = ["[*]CCN[*]", "[*]COC[*]"]
-    bond_config = feat.BondConfig(True, False, True)
+    bond_config = feat.BondConfig(True, False, True, False, False)
     atom_config = feat.AtomConfig(
         True,
         True,
@@ -37,6 +37,7 @@ def example_data():
         True,
         False,
         True,
+        False,
     )
     train_X = [
         feat.get_minimum_graph_tensor(x, bond_config, atom_config, "monocycle")
@@ -235,7 +236,7 @@ def test_graph_feats(example_data, example_data2):
     [
         (
             "[*]=CNC=[*]",
-            feat.BondConfig(True, False, True),
+            feat.BondConfig(True, False, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -245,12 +246,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 False,
                 True,
+                False,
             ),
             "monocycle",
         ),
         (
             "[*]CCN[*]",
-            feat.BondConfig(True, False, True),
+            feat.BondConfig(True, False, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -260,12 +262,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 False,
                 True,
+                False,
             ),
             "monocycle",
         ),
         (
             "[*]OC(C)CCC(C)OC(=O)CCCCC([*])=O",
-            feat.BondConfig(True, False, True),
+            feat.BondConfig(True, False, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -275,12 +278,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 True,  # needs to be True to avoid separate features for SP2/SP3
                 True,
+                False,
             ),
             "monocycle",
         ),
         (
             "C1%12=C(C=C%10C(=C1)S(=O)(=O)C2=C(C=C9C(=C2)OC3=C(C=C4C(=C3)C5(CC4(C)C)CC(C)(C)C6=C5C=C8C(=C6)OC7=C(C(C#N)=C([g])C([t])=C7C#N)O8)O9)S%10(=O)=O)OC%11=CC%15=C(C=C%11O%12)C%14(C%13=CC(O[e])=C(O[d])C=C%13C(C)(C)C%14)CC%15(C)C",
-            feat.BondConfig(False, False, True),
+            feat.BondConfig(False, False, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -290,12 +294,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 True,  # if True, SP2/SP3 will be combined in one feature
                 False,  # if False, aromatic feature will *not* be used
+                False,
             ),
             "monocycle",
         ),
         (
             "[*]OC1CCC(OC(=O)NCCSCCCCCCSCCNC([*])=O)CC1",
-            feat.BondConfig(True, True, True),
+            feat.BondConfig(True, True, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -305,12 +310,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 combo_hybrid=False,  # needs to be True to avoid separate features for SP2/SP3
                 aromatic=True,
+                chirality=False,
             ),
             "trimer",
         ),
         (
             "C1C([g])C([e])OC([t])C1[d]",
-            feat.BondConfig(True, True, True),
+            feat.BondConfig(True, True, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -320,12 +326,13 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 combo_hybrid=False,  # needs to be True to avoid separate features for SP2/SP3
                 aromatic=True,
+                chirality=False,
             ),
             "trimer",
         ),
         (
             "C1=CC(O[t])=C(O[d])C=C1C2CC(CN)=C([e])C([g])=C2CN",
-            feat.BondConfig(True, True, True),
+            feat.BondConfig(True, True, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -335,6 +342,7 @@ def test_graph_feats(example_data, example_data2):
                 True,
                 combo_hybrid=False,  # needs to be True to avoid separate features for SP2/SP3
                 aromatic=True,
+                chirality=False,
             ),
             "trimer",
         ),
@@ -355,7 +363,7 @@ def test_intensiveness_pass1(smiles_pass, bond_config_pass, atom_config_pass, re
     [
         (
             "[*]OC(C)CCC(C)OC(=O)CCCCC([*])=O",
-            feat.BondConfig(True, False, True),
+            feat.BondConfig(True, False, True, False, False),
             feat.AtomConfig(
                 True,
                 True,
@@ -365,6 +373,7 @@ def test_intensiveness_pass1(smiles_pass, bond_config_pass, atom_config_pass, re
                 True,
                 combo_hybrid=False,  # needs to be True to avoid separate features for SP2/SP3
                 aromatic=True,
+                chirality=False,
             ),
             "monocycle",
         ),
@@ -470,7 +479,7 @@ def test_TrimerLadder(example_ladder_data):
 
 def test_trimer_feats():
     sm = "[*]CC[*]"
-    bond_config = feat.BondConfig(True, True, True)
+    bond_config = feat.BondConfig(True, True, True, False, False)
     atom_config = feat.AtomConfig(
         True,
         True,
@@ -480,6 +489,7 @@ def test_trimer_feats():
         True,
         combo_hybrid=False,  # needs to be True to avoid separate features for SP2/SP3
         aromatic=True,
+        chirality=False,
     )
     data = feat.get_minimum_graph_tensor(sm, bond_config, atom_config, "trimer")
     carbon_feat = (

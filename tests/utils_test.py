@@ -18,7 +18,7 @@ def make_prediction(data, dir_name):
             you desire to get predictions from. (e.g., "thermal", "electronic", etc.)
     """
     root_dir = f"./trained_models/{dir_name}"
-    bond_config = polygnn.featurize.BondConfig(True, True, True)
+    bond_config = polygnn.featurize.BondConfig(True, True, True, False, False)
     atom_config = polygnn.featurize.AtomConfig(
         True,
         True,
@@ -28,6 +28,7 @@ def make_prediction(data, dir_name):
         True,
         combo_hybrid=False,  # if True, SP2/SP3 are combined into one feature
         aromatic=True,
+        chirality=False,
     )
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # specify GPU
