@@ -245,8 +245,8 @@ class BondConfig:
     bond_type: bool
     conjugation: bool
     ring: bool
-    stereo: bool
-    bond_dir: bool
+    stereo: bool = False
+    bond_dir: bool = False
 
     def __post_init__(self):
         self.n_features = 0
@@ -314,9 +314,9 @@ class AtomConfig:
     formal_charge: bool
     num_rad_e: bool
     hybridization: bool
-    combo_hybrid: bool  # if True, sp2 and sp3 will be merged into one feature
-    aromatic: bool
-    chirality: bool
+    combo_hybrid: bool = False  # if True, sp2 and sp3 will be merged into one feature
+    aromatic: bool = False
+    chirality: bool = False
 
     def __post_init__(self):
         self.n_features = 0
