@@ -232,7 +232,14 @@ def shuffle_polymer(smile=None, randomize=None):
 class BondConfig:
     """
     A class to configure which features should be included
-    in the bond fingerprint
+    in the bond fingerprint.
+
+    Args:
+        bond_type (bool): If True, include bond type.
+        conjugation (bool): If True, include bond conjugation.
+        ring (bool): If True, include bond ring information.
+        stereo (bool): If True, include bond stereo information.
+        bond_dir (bool): If True, include bond direction information.
     """
 
     bond_type: bool
@@ -287,7 +294,18 @@ class BondConfig:
 class AtomConfig:
     """
     A class to configure which features should be included
-    in the atom fingerprint
+    in the atom fingerprint.
+
+    Args:
+        element_type (bool): If True, include element type.
+        degree (bool): If True, include degree.
+        implicit_valence (bool): If True, include implicit valence.
+        formal_charge (bool): If True, include formal charge.
+        num_rad_e (bool): If True, include number of radical electrons.
+        hybridization (bool): If True, include hybridization type.
+        combo_hybrid (bool): If True, sp2 and sp3 will be merged into one feature.
+        aromatic (bool): If True, include aromaticity.
+        chirality (bool): If True, include chirality.
     """
 
     element_type: bool
@@ -358,21 +376,15 @@ class AtomConfig:
 
 
 def bond_fp(bond, config):
-    """Helper method used to compute bond feature vectors.
-    Many different featurization methods compute bond features
-    such as WeaveFeaturizer. This method computes such features.
-    Parameters
-    ----------
-    use_chirality: bool, optional
-      If true, use chirality information.
-    Note
-    ----
-    This method requires RDKit to be installed.
-    Returns
-    -------
-    bond_feats: np.ndarray
-      Array of bond features. This is a 1-D array of length 6 if `use_chirality`
-      is `False` else of length 10 with chirality encoded.
+    """
+    Helper method used to compute bond feature vectors.
+
+    Args:
+        bond (rdkit.Chem.rdchem.Bond): A bond object
+        config (BondConfig): A BondConfig object.
+
+    Returns:
+        bond_feature (list): A list of bond features
     """
 
     bt = bond.GetBondType()
@@ -507,18 +519,13 @@ element_names = [
 def atom_fp(atom, atom_config: AtomConfig):
     """
     Helper method used to compute per-atom feature vectors.
-    Many different featurization methods compute per-atom features such as ConvMolFeaturizer, WeaveFeaturizer. This method computes such features.
-    Parameters
-    ----------
-    bool_id_feat: bool, optional
-    Return an array of unique identifiers corresponding to atom type.
-    explicit_H: bool, optional
-    If true, model hydrogens explicitly
-    use_chirality: bool, optional
-    If true, use chirality information.
-    Returns
-    -------
-    np.ndarray of per-atom features.
+
+    Args:
+        atom: RDKit Atom object
+        atom_config: AtomConfig object
+
+    Returns:
+        List of atom features.
     """
     results = []
     if atom_config.element_type:
