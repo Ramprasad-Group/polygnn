@@ -1,0 +1,13 @@
+smiles_string,prop,value,class,name
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_CO2,-8.448550002,Polyarylates ,TBHFBPA-I PAR
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_CH4,-10.22402567,Polyarylates ,TBHFBPA-I PAR
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_O2,-9.170696227,Polyarylates ,TBHFBPA-I PAR
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_N2,-9.970616222,Polyarylates ,TBHFBPA-I PAR
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_He,-8.178486472,Polyarylates ,TBHFBPA-I PAR
+[*]COc1c(Br)cc(C(c2cc(Br)c(OC(=O)c3cccc(C([*])=O)c3)c(Br)c2)(C(F)(F)F)C(F)(F)F)cc1Br,p_exp_H2,-8.187086643,Polyarylates ,TBHFBPA-I PAR
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_CO2,-8.619788758,Polycarbonates ,Hexafluoro Bis A polycarbonate
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_CH4,-9.982966661,Polycarbonates ,Hexafluoro Bis A polycarbonate
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_O2,-9.161150909,Polycarbonates ,Hexafluoro Bis A polycarbonate
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_N2,-9.774690718,Polycarbonates ,Hexafluoro Bis A polycarbonate
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_He,-8.22184875,Polycarbonates ,Hexafluoro Bis A polycarbonate
+[*]Oc1ccc(C(c2ccc(OC([*])=O)cc2)(C(F)(F)F)C(F)(F)F)cc1,p_exp_H2,-8.367542708,Polycarbonates ,Hexafluoro Bis A polycarbonate
