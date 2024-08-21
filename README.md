@@ -2,6 +2,8 @@
 
 This repository contains the training code and model weights presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991).
 
+This repository was also used to train models in a subsequent paper, [*Gas permeability, diffusivity, and solubility in polymers*](https://www.nature.com/articles/s41524-024-01373-9). The weights of this model are also provided in this repository.
+
 ## Installation
 This repository is currently set up to run on 1) Mac OSX and 2) Linux/Windows machines with CUDA 10.2. Please raise a GitHub issue if you want to use this repo with a different configuration. Otherwise, follow these steps for installation:
 
@@ -38,12 +40,13 @@ Looking at `sample_data/sample.csv`, you will notice that this dataset contains 
 A directory containing more example files.
 - `more_examples/example_predict_trained_models.py` an example of how to just do prediction using one of the models trained in the [companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991). To run the file do `cd more_examples && poetry run python example_predict_trained_models.py`. The file shows how to get predictions for 36 different properties of polyethylene. Of course, you can change the polymer that you want to get predictions for, but the properties that can be predicted are fixed. If you want to make a prediction for a different property, then you'll need to train your own model (see `example.py` and `example2.py` for more details on training your own model).
 - `more_examples/example_predict.py` an example of how to just do prediction using a previously-trained model not included in the companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991). This file requires that an unmodified `example.py` be run first. This file shares the same flags as `example.py`.
+- `more_examples/example_gas.py` an example of how to do predictions using the model trained in [*Gas permeability, diffusivity, and solubility in polymers*](https://www.nature.com/articles/s41524-024-01373-9).
 
 ## Questions
 I ([@rishigurnani](https://github.com/rishigurnani)) am more than happy to answer any questions about this codebase. If you encounter any troubles, please open a new Issue in the "Issues" tab and I will promptly respond. In addition, if you discover any bugs or have any suggestions to improve the codebase (documentation, features, etc.) please also open a new Issue. This is the power of open source!
 
 ## Citation
-If you use this repository in your work please consider citing us.
+If you use this repository in your work please consider citing the origial polyGNN paper.
 ```
 @article{Gurnani2023,
    annote = {doi: 10.1021/acs.chemmater.2c02991},
@@ -61,6 +64,9 @@ If you use this repository in your work please consider citing us.
    year = {2023}
 }
 ```
+
+And the subsequent papers which have used polyGNN
+- [*Gas permeability, diffusivity, and solubility in polymers*](https://www.nature.com/articles/s41524-024-01373-9)
 
 ## Companion paper
 The results shown in the [companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991) were generated using v0.2.0 of this package.
