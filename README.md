@@ -65,8 +65,9 @@ If you use this repository in your work please consider citing the origial polyG
 }
 ```
 
-And the subsequent papers which have used polyGNN
+And, if relevant, the subsequent papers which have used polyGNN
 - [*Gas permeability, diffusivity, and solubility in polymers*](https://www.nature.com/articles/s41524-024-01373-9)
+- [*AI-assisted discovery of high-temperature dielectrics for energy storage*](https://www.nature.com/articles/s41467-024-50413-x)
 
 ## Companion paper
 The results shown in the [companion paper](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991) were generated using v0.2.0 of this package.
