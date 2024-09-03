@@ -1,5 +1,7 @@
 # polygnn
 
+# IMPORTANT NOTE: The code and data shared here is available for academic non-commercial use only
+
 This repository contains the training code and model weights presented in a companion paper, [*polyGNN: Multitask graph neural networks for polymer informatics*](https://pubs.acs.org/doi/full/10.1021/acs.chemmater.2c02991).
 
 This repository was also used to train a model in a subsequent paper, [*Gas permeability, diffusivity, and solubility in polymers*](https://www.nature.com/articles/s41524-024-01373-9). Those model weights are provided in this repository, while the training data is in a different [repository](https://github.com/Ramprasad-Group/polyVERSE/tree/main/Other/Gas_permeability_solubility_diffusivity).
